@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
+import SaveBtn from "../../components/SaveBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
@@ -12,7 +13,10 @@ class Books extends Component {
     books: [],
     title: "",
     author: "",
-    synopsis: ""
+    synopsis: "",
+    info: "",
+    img: "",
+    link: ""
   };
 
   componentDidMount() {
@@ -57,7 +61,7 @@ class Books extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
+          <Col size="md-12">
             <Jumbotron>
               <h1>What Books Should I Read?</h1>
             </Jumbotron>
@@ -88,7 +92,9 @@ class Books extends Component {
               </FormBtn>
             </form>
           </Col>
-          <Col size="md-6">
+        </Row>
+        <Row>
+          <Col size="md-12">
             <Jumbotron>
               <h1>Books On My List</h1>
             </Jumbotron>
@@ -96,12 +102,15 @@ class Books extends Component {
               <List>
                 {this.state.books.map(book => (
                   <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </Link>
                     <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    <SaveBtn/>
+                    <a href={book.link}>
+                      <strong>
+                        {book.title}
+                      </strong>
+                      <img className="img-responsive center-block" src={book.img}/>
+                    </a>
+
                   </ListItem>
                 ))}
               </List>
