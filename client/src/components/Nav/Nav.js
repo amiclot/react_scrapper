@@ -1,4 +1,5 @@
 import React from "react";
+import "./Nav.css";
 
 const Nav = () =>
   <nav className="navbar navbar-inverse navbar-top">
@@ -10,7 +11,7 @@ const Nav = () =>
           <span className="icon-bar" />
         </button>
         <a href="/" className="navbar-brand">
-          React Reading List
+          React BJJ News Scraper
         </a>
       </div>
     </div>

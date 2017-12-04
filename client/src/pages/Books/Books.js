@@ -63,7 +63,33 @@ class Books extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1>What Books Should I Read?</h1>
+              <h1>New Articles</h1>
+            </Jumbotron>
+            {this.state.books.length ? (
+              <List>
+                {this.state.books.map(book => (
+                  <ListItem key={book._id}>
+                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    <SaveBtn/>
+                    <a href={book.link}>
+                      <strong>
+                        {book.title}
+                      </strong>
+                      <img className="img-responsive center-block" src={book.img}/>
+                    </a>
+
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <h3>No Results to Display</h3>
+            )}
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-12">
+            <Jumbotron>
+              <h1>Saved Articles</h1>
             </Jumbotron>
             <form>
               <Input
@@ -91,32 +117,6 @@ class Books extends Component {
                 Submit Book
               </FormBtn>
             </form>
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-12">
-            <Jumbotron>
-              <h1>Books On My List</h1>
-            </Jumbotron>
-            {this.state.books.length ? (
-              <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book._id}>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                    <SaveBtn/>
-                    <a href={book.link}>
-                      <strong>
-                        {book.title}
-                      </strong>
-                      <img className="img-responsive center-block" src={book.img}/>
-                    </a>
-
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
           </Col>
         </Row>
       </Container>
