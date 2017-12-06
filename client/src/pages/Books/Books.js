@@ -15,7 +15,7 @@ class Books extends Component {
     info: "",
     img: "",
     link: ""
-  };
+  }
 
   componentDidMount() {
     this.loadBooks();
@@ -27,7 +27,7 @@ class Books extends Component {
         this.setState({ articles: res.data })
       )
       .catch(err => console.log(err));
-  };
+  }
 
   savedBooks = () => {
     API.getSavedBooks()
@@ -38,7 +38,7 @@ class Books extends Component {
     API.deleteBook(id)
       .then(res => this.loadBooks())
       .catch(err => console.log(err));
-  };
+  }
 
   saveBook = id => {
     API.saveBook(id)
@@ -51,7 +51,7 @@ class Books extends Component {
     this.setState({
       [name]: value
     });
-  };
+  }
 
   handleFormSubmit = event => {
     event.preventDefault();
