@@ -118,6 +118,31 @@ class Books extends Component {
             <Jumbotron>
               <h1>Saved Articles</h1>
             </Jumbotron>
+            {this.state.saved.length ? (
+              <List>
+                {this.state.articles.map(book => (
+                  <ListItem key={book._id}>
+                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    <SaveBtn onClick={() => this.saveBook(book._id, book.title, book.link, book.info, book.img)}/>
+                    <a href={book.link}>
+                      <strong>
+                        {book.title}
+                      </strong>
+                      <img alt="other" className="img-responsive center-block" src={book.img}/>
+                    </a>
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <h3>No Results to Display</h3>
+            )}
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-12">
+            <Jumbotron>
+              <h1>Comments</h1>
+            </Jumbotron>
             <form>
               <Input
                 value={this.state.title}
