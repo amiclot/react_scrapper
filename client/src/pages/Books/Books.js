@@ -10,10 +10,8 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 
 class Books extends Component {
   state = {
-    books: [],
+    articles: [],
     title: "",
-    author: "",
-    synopsis: "",
     info: "",
     img: "",
     link: ""
@@ -26,16 +24,27 @@ class Books extends Component {
   loadBooks = () => {
     API.getBooks()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
+        this.setState({ articles: res.data })
       )
       .catch(err => console.log(err));
   };
+
+  savedBooks = () => {
+    API.getSavedBooks()
+
+  }
 
   deleteBook = id => {
     API.deleteBook(id)
       .then(res => this.loadBooks())
       .catch(err => console.log(err));
   };
+
+  saveBook = id => {
+    API.saveBook(id)
+
+  }
+
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -65,9 +74,9 @@ class Books extends Component {
             <Jumbotron>
               <h1>New Articles</h1>
             </Jumbotron>
-            {this.state.books.length ? (
+            {this.state.articles.length ? (
               <List>
-                {this.state.books.map(book => (
+                {this.state.articles.map(book => (
                   <ListItem key={book._id}>
                     <DeleteBtn onClick={() => this.deleteBook(book._id)} />
                     <SaveBtn/>
