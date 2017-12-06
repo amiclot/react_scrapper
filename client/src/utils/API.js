@@ -15,10 +15,10 @@ export default {
   },
   // Saves a book to the database
   saveBook: function(bookData) {
-    return axios.post("/api/books/saved", bookData);
+    return axios.post("/api/saved", bookData);
   },
   getSavedBooks: function() {
-    return axios.get("/api/books/saved")
+    return axios.get("/api/saved");
   }
 
 };

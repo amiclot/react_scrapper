@@ -3,7 +3,7 @@ import DeleteBtn from "../../components/DeleteBtn";
 import SaveBtn from "../../components/SaveBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
@@ -11,21 +11,26 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 class Books extends Component {
   state = {
     articles: [],
-    saved:[],
     title: "",
     info: "",
     img: "",
-    link: ""
+    link: "",
+    saved:[],
   }
+
 
   componentDidMount() {
     this.loadBooks();
+    this.loadsavedBooks();
   }
 
   loadBooks = () => {
     API.getBooks()
       .then(res =>
-        this.setState({ articles: res.data })
+        this.setState({ articles: res.data },  
+        function () {
+        console.log(this.state);
+        })
       )
       .catch(err => console.log(err));
   }
@@ -33,7 +38,10 @@ class Books extends Component {
   loadsavedBooks = () => {
     API.getSavedBooks()
       .then(res =>
-        this.setState({ saved: res.data })
+        this.setState({ saved: res.data },  
+        function () {
+        console.log(this.state);
+        })
       )
       .catch(err =>console.log(err));
 
@@ -97,7 +105,7 @@ class Books extends Component {
                       <strong>
                         {book.title}
                       </strong>
-                      <img className="img-responsive center-block" src={book.img}/>
+                      <img alt="other" className="img-responsive center-block" src={book.img}/>
                     </a>
                   </ListItem>
                 ))}
@@ -111,6 +119,31 @@ class Books extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>Saved Articles</h1>
+            </Jumbotron>
+            {this.state.saved.length ? (
+              <List>
+                {this.state.articles.map(book => (
+                  <ListItem key={book._id}>
+                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    <SaveBtn onClick={() => this.saveBook(book._id, book.title, book.link, book.info, book.img)}/>
+                    <a href={book.link}>
+                      <strong>
+                        {book.title}
+                      </strong>
+                      <img alt="other" className="img-responsive center-block" src={book.img}/>
+                    </a>
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <h3>No Results to Display</h3>
+            )}
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-12">
+            <Jumbotron>
+              <h1>Comments</h1>
             </Jumbotron>
             <form>
               <Input
