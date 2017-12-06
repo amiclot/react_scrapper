@@ -3,7 +3,7 @@ import DeleteBtn from "../../components/DeleteBtn";
 import SaveBtn from "../../components/SaveBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
@@ -25,7 +25,10 @@ class Books extends Component {
   loadBooks = () => {
     API.getBooks()
       .then(res =>
-        this.setState({ articles: res.data })
+        this.setState({ articles: res.data },  
+        function () {
+        console.log(this.state);
+        })
       )
       .catch(err => console.log(err));
   }
@@ -33,7 +36,10 @@ class Books extends Component {
   loadsavedBooks = () => {
     API.getSavedBooks()
       .then(res =>
-        this.setState({ saved: res.data })
+        this.setState({ saved: res.data },  
+        function () {
+        console.log(this.state);
+        })
       )
       .catch(err =>console.log(err));
 
@@ -97,7 +103,7 @@ class Books extends Component {
                       <strong>
                         {book.title}
                       </strong>
-                      <img className="img-responsive center-block" src={book.img}/>
+                      <img alt="articleimg" className="img-responsive center-block" src={book.img}/>
                     </a>
                   </ListItem>
                 ))}
