@@ -11,6 +11,7 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 class Books extends Component {
   state = {
     articles: [],
+    saved:[],
     title: "",
     info: "",
     img: "",
@@ -29,8 +30,12 @@ class Books extends Component {
       .catch(err => console.log(err));
   }
 
-  savedBooks = () => {
+  loadsavedBooks = () => {
     API.getSavedBooks()
+      .then(res =>
+        this.setState({ saved: res.data })
+      )
+      .catch(err =>console.log(err));
 
   }
 
@@ -40,8 +45,16 @@ class Books extends Component {
       .catch(err => console.log(err));
   }
 
-  saveBook = id => {
-    API.saveBook(id)
+  saveBook = (id, title, link, info, img) => {
+    API.saveBook({
+      title: title,
+      link: link,
+      info: info,
+      id: id,
+      img: img
+    })
+      .then(res => this.loadsavedBooks())
+      .catch(err => console.log(err));
 
   }
 
@@ -79,14 +92,13 @@ class Books extends Component {
                 {this.state.articles.map(book => (
                   <ListItem key={book._id}>
                     <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                    <SaveBtn/>
+                    <SaveBtn onClick={() => this.saveBook(book._id, book.title, book.link, book.info, book.img)}/>
                     <a href={book.link}>
                       <strong>
                         {book.title}
                       </strong>
                       <img className="img-responsive center-block" src={book.img}/>
                     </a>
-
                   </ListItem>
                 ))}
               </List>

@@ -7,7 +7,18 @@ module.exports = {
   findAll: function(req, res) {
     db.Article
       .find(req.query)
-      .sort({ date: -1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  save: function(req, res) {
+    db.Saved
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findAllSaved: function(req, res) {
+    db.Saved
+      .find(req.query)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
