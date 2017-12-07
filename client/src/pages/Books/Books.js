@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
 import SaveBtn from "../../components/SaveBtn";
+import LoadBtn from "../../components/LoadBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 // import { Link } from "react-router-dom";
@@ -19,10 +20,10 @@ class Books extends Component {
 
   }
 
-  componentDidMount() {
-    this.loadBooks();
-    this.loadsavedBooks();
-  }
+  // componentDidMount() {
+  //   this.loadBooks();
+  //   this.loadsavedBooks();
+  // }
 
   loadBooks = () => {
     API.getBooks()
@@ -67,7 +68,8 @@ class Books extends Component {
   }
 
   scrapeArticles = () => {
-    API.scrapeArticles();
+    API.scrapeArticles()
+      .then;
   }
 
 
@@ -98,6 +100,7 @@ class Books extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>BJJ News Articles</h1>
+              <LoadBtn onClick={() => this.loadBooks()} />
             </Jumbotron>
             {this.state.articles.length ? (
               <List>
