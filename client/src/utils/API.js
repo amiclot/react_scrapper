@@ -19,6 +19,9 @@ export default {
   },
   getSavedBooks: function() {
     return axios.get("/api/saved");
-  }
+  },
+  scrapeArticles: function() {
+    return axios.get("/api/scrape");
+  },
 
 };

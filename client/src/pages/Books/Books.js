@@ -14,6 +14,11 @@ class Books extends Component {
     saved:[]
   }
 
+  componentWillMount() {
+    this.scrapeArticles();
+
+  }
+
   componentDidMount() {
     this.loadBooks();
     this.loadsavedBooks();
@@ -61,6 +66,10 @@ class Books extends Component {
 
   }
 
+  scrapeArticles = () => {
+    API.scrapeArticles();
+  }
+
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -88,7 +97,7 @@ class Books extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1>New Articles</h1>
+              <h1>BJJ News Articles</h1>
             </Jumbotron>
             {this.state.articles.length ? (
               <List>
