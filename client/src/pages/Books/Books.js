@@ -11,15 +11,12 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 class Books extends Component {
   state = {
     articles: [],
-    saved:[],
-    title: "",
-    info: "",
-    img: "",
-    link: ""
+    saved:[]
   }
 
   componentDidMount() {
     this.loadBooks();
+    this.loadsavedBooks();
   }
 
   loadBooks = () => {

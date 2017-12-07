@@ -18,7 +18,7 @@ export default {
     return axios.post("/api/books/saved", bookData);
   },
   getSavedBooks: function() {
-    return axios.get("/api/books/saved")
+    return axios.get("/api/saved");
   }
 
 };
