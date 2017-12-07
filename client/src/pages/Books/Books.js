@@ -117,10 +117,8 @@ class Books extends Component {
             </Jumbotron>
             {this.state.saved.length ? (
               <List>
-                {this.state.articles.map(book => (
+                {this.state.saved.map(book => (
                   <ListItem key={book._id}>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                    <SaveBtn onClick={() => this.saveBook(book._id, book.title, book.link, book.info, book.img)}/>
                     <a href={book.link}>
                       <strong>
                         {book.title}
