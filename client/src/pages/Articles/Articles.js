@@ -9,7 +9,7 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 
-class Books extends Component {
+class Articles extends Component {
   state = {
     articles: [],
     saved:[]
@@ -17,16 +17,15 @@ class Books extends Component {
 
   componentWillMount() {
     this.scrapeArticles();
-
   }
 
   // componentDidMount() {
-  //   this.loadBooks();
-  //   this.loadsavedBooks();
+  //   this.loadarticles();
+  //   this.loadsavedarticles();
   // }
 
-  loadBooks = () => {
-    API.getBooks()
+  loadarticles = () => {
+    API.getarticles()
       .then(res =>
         this.setState({ articles: res.data },  
         function () {
@@ -36,8 +35,8 @@ class Books extends Component {
       .catch(err => console.log(err));
   }
 
-  loadsavedBooks = () => {
-    API.getSavedBooks()
+  loadsavedarticles = () => {
+    API.getSavedarticles()
       .then(res =>
         this.setState({ saved: res.data },  
         function () {
@@ -48,28 +47,27 @@ class Books extends Component {
 
   }
 
-  deleteBook = id => {
-    API.deleteBook(id)
-      .then(res => this.loadBooks())
+  deletearticle = id => {
+    API.deletearticle(id)
+      .then(res => this.loadarticles())
       .catch(err => console.log(err));
   }
 
-  saveBook = (id, title, link, info, img) => {
-    API.saveBook({
+  savearticle = (id, title, link, info, img) => {
+    API.savearticle({
       title: title,
       link: link,
       info: info,
       id: id,
       img: img
     })
-      .then(res => this.loadsavedBooks())
+      .then(res => this.loadsavedarticles())
       .catch(err => console.log(err));
 
   }
 
   scrapeArticles = () => {
     API.scrapeArticles()
-      .then;
   }
 
 
@@ -83,12 +81,12 @@ class Books extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.title && this.state.author) {
-      API.saveBook({
+      API.savearticle({
         title: this.state.title,
         author: this.state.author,
         synopsis: this.state.synopsis
       })
-        .then(res => this.loadBooks())
+        .then(res => this.loadarticles())
         .catch(err => console.log(err));
     }
   };
@@ -100,19 +98,19 @@ class Books extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>BJJ News Articles</h1>
-              <LoadBtn onClick={() => this.loadBooks()} />
+              <LoadBtn onClick={() => this.loadarticles()} />
             </Jumbotron>
             {this.state.articles.length ? (
               <List>
-                {this.state.articles.map(book => (
-                  <ListItem key={book._id}>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                    <SaveBtn onClick={() => this.saveBook(book._id, book.title, book.link, book.info, book.img)}/>
-                    <a href={book.link}>
+                {this.state.articles.map(article => (
+                  <ListItem key={article._id}>
+                    <DeleteBtn onClick={() => this.deletearticle(article._id)} />
+                    <SaveBtn onClick={() => this.savearticle(article._id, article.title, article.link, article.info, article.img)}/>
+                    <a href={article.link}>
                       <strong>
-                        {book.title}
+                        {article.title}
                       </strong>
-                      <img alt="articleimg" className="img-responsive center-block" src={book.img}/>
+                      <img alt="articleimg" className="img-responsive center-block" src={article.img}/>
                     </a>
                   </ListItem>
                 ))}
@@ -126,16 +124,17 @@ class Books extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>Saved Articles</h1>
+              <LoadBtn onClick={() => this.loadsavedarticles()} />
             </Jumbotron>
             {this.state.saved.length ? (
               <List>
-                {this.state.saved.map(book => (
-                  <ListItem key={book._id}>
-                    <a href={book.link}>
+                {this.state.saved.map(article => (
+                  <ListItem key={article._id}>
+                    <a href={article.link}>
                       <strong>
-                        {book.title}
+                        {article.title}
                       </strong>
-                      <img alt="other" className="img-responsive center-block" src={book.img}/>
+                      <img alt="other" className="img-responsive center-block" src={article.img}/>
                     </a>
                   </ListItem>
                 ))}
@@ -173,7 +172,7 @@ class Books extends Component {
                 disabled={!(this.state.author && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
-                Submit Book
+                Submit article
               </FormBtn>
             </form>
           </Col>
@@ -183,4 +182,4 @@ class Books extends Component {
   }
 }
 
-export default Books;
+export default Articles;

@@ -1,10 +1,10 @@
 const router = require("express").Router();
-const bookRoutes = require("./books");
+const articleRoutes = require("./articles");
 const savedRoutes = require("./saved");
 const scrapeRoutes = require("./scrape");
 
-// Book routes
-router.use("/books", bookRoutes);
+// article routes
+router.use("/articles", articleRoutes);
 router.use("/saved", savedRoutes);
 router.use("/scrape", scrapeRoutes);
 

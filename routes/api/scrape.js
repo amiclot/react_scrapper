@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const booksController = require("../../controllers/booksController");
+const articlesController = require("../../controllers/articlesController");
 
 // Matches with "/api/scrape"
 router.route("/")
-	.get(booksController.create);
+	.get(articlesController.create);
 
 module.exports = router;
