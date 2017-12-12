@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const booksController = require("../../controllers/booksController");
+const articlesController = require("../../controllers/articlesController");
 
 // Matches with "/api/saved"
 router.route("/")
-  .get(booksController.findAllSaved);
+  .get(articlesController.findAllSaved);
 
 module.exports = router;
