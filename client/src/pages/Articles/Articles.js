@@ -8,6 +8,7 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
+import Nav from "../../components/Nav";
 
 class Articles extends Component {
   state = {
@@ -94,8 +95,9 @@ class Articles extends Component {
   render() {
     return (
       <Container fluid>
+        <Nav/>
         <Row>
-          <Col size="md-12">
+          <Col size="md-6">
             <Jumbotron>
               <h1>BJJ News Articles</h1>
               <LoadBtn onClick={() => this.loadarticles()} />
@@ -119,9 +121,8 @@ class Articles extends Component {
               <h3>No Results to Display</h3>
             )}
           </Col>
-        </Row>
-        <Row>
-          <Col size="md-12">
+        
+          <Col size="md-6">
             <Jumbotron>
               <h1>Saved Articles</h1>
               <LoadBtn onClick={() => this.loadsavedarticles()} />
@@ -142,39 +143,6 @@ class Articles extends Component {
             ) : (
               <h3>No Results to Display</h3>
             )}
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-12">
-            <Jumbotron>
-              <h1>Comments</h1>
-            </Jumbotron>
-            <form>
-              <Input
-                value={this.state.title}
-                onChange={this.handleInputChange}
-                name="title"
-                placeholder="Title (required)"
-              />
-              <Input
-                value={this.state.author}
-                onChange={this.handleInputChange}
-                name="author"
-                placeholder="Author (required)"
-              />
-              <TextArea
-                value={this.state.synopsis}
-                onChange={this.handleInputChange}
-                name="synopsis"
-                placeholder="Synopsis (Optional)"
-              />
-              <FormBtn
-                disabled={!(this.state.author && this.state.title)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit article
-              </FormBtn>
-            </form>
           </Col>
         </Row>
       </Container>
